@@ -278,6 +278,11 @@ BOOST_AUTO_TEST_CASE( test_run_by_name )
     }
 
     {
+        char const* argv[] = { "a.exe", "--run_test=A", "--run_test=ts2/ts1/C,ts2/ts1/D" };
+        test_count( master_ts, argv, sizeof(argv), 3 );
+    }
+
+    {
         char const* argv[] = { "a.exe", "--run_test=ts2", "--run_test=!ts2/*A" };
         test_count( master_ts, argv, sizeof(argv), 3 );
     }
