@@ -236,12 +236,12 @@ public:
     name_filter( test_unit_id_list& targ_list, const_string filter_expr ) : m_targ_list( targ_list ), m_depth( 0 )
     {
 #ifdef BOOST_TEST_SUPPORT_TOKEN_ITERATOR
-        utils::string_token_iterator tit( filter_expr, (utils::dropped_delimeters = "/", 
+        utils::string_token_iterator tit( filter_expr, (utils::dropped_delimeters = "/",
                                                         utils::kept_delimeters = utils::dt_none) );
 
         while( tit != utils::string_token_iterator() ) {
             m_components.push_back( 
-                std::vector<component>( utils::string_token_iterator( *tit, (utils::dropped_delimeters = ",", 
+                std::vector<component>( utils::string_token_iterator( *tit, (utils::dropped_delimeters = ",",
                                                                              utils::kept_delimeters = utils::dt_none) ),
                                         utils::string_token_iterator() ) );
 
