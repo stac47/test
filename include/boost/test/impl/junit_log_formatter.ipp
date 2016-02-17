@@ -40,11 +40,11 @@ static const_string tu_type_name( test_unit const& tu )
 }
 
 // ************************************************************************** //
-// **************               xml_log_formatter              ************** //
+// **************               junit_log_formatter              ************** //
 // ************************************************************************** //
 
 void
-xml_log_formatter::log_start( std::ostream& ostr, counter_t )
+junit_log_formatter::log_start( std::ostream& ostr, counter_t )
 {
     ostr  << "<TestLog>";
 }
@@ -52,7 +52,7 @@ xml_log_formatter::log_start( std::ostream& ostr, counter_t )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_finish( std::ostream& ostr )
+junit_log_formatter::log_finish( std::ostream& ostr )
 {
     ostr  << "</TestLog>";
 }
@@ -60,7 +60,7 @@ xml_log_formatter::log_finish( std::ostream& ostr )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_build_info( std::ostream& ostr )
+junit_log_formatter::log_build_info( std::ostream& ostr )
 {
     ostr  << "<BuildInfo"
             << " platform"  << utils::attr_value() << BOOST_PLATFORM
@@ -75,7 +75,7 @@ xml_log_formatter::log_build_info( std::ostream& ostr )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::test_unit_start( std::ostream& ostr, test_unit const& tu )
+junit_log_formatter::test_unit_start( std::ostream& ostr, test_unit const& tu )
 {
     ostr << "<" << tu_type_name( tu ) << " name" << utils::attr_value() << tu.p_name.get();
 
@@ -89,7 +89,7 @@ xml_log_formatter::test_unit_start( std::ostream& ostr, test_unit const& tu )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::test_unit_finish( std::ostream& ostr, test_unit const& tu, unsigned long elapsed )
+junit_log_formatter::test_unit_finish( std::ostream& ostr, test_unit const& tu, unsigned long elapsed )
 {
     if( tu.p_type == TUT_CASE )
         ostr << "<TestingTime>" << elapsed << "</TestingTime>";
@@ -100,7 +100,7 @@ xml_log_formatter::test_unit_finish( std::ostream& ostr, test_unit const& tu, un
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::test_unit_skipped( std::ostream& ostr, test_unit const& tu, const_string reason )
+junit_log_formatter::test_unit_skipped( std::ostream& ostr, test_unit const& tu, const_string reason )
 {
     ostr << "<" << tu_type_name( tu )
          << " name"    << utils::attr_value() << tu.p_name
@@ -112,7 +112,7 @@ xml_log_formatter::test_unit_skipped( std::ostream& ostr, test_unit const& tu, c
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_exception_start( std::ostream& ostr, log_checkpoint_data const& checkpoint_data, execution_exception const& ex )
+junit_log_formatter::log_exception_start( std::ostream& ostr, log_checkpoint_data const& checkpoint_data, execution_exception const& ex )
 {
     execution_exception::location const& loc = ex.where();
 
@@ -136,7 +136,7 @@ xml_log_formatter::log_exception_start( std::ostream& ostr, log_checkpoint_data 
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_exception_finish( std::ostream& ostr )
+junit_log_formatter::log_exception_finish( std::ostream& ostr )
 {
     ostr << "</Exception>";
 }
@@ -144,7 +144,7 @@ xml_log_formatter::log_exception_finish( std::ostream& ostr )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_entry_start( std::ostream& ostr, log_entry_data const& entry_data, log_entry_types let )
+junit_log_formatter::log_entry_start( std::ostream& ostr, log_entry_data const& entry_data, log_entry_types let )
 {
     static literal_string xml_tags[] = { "Info", "Message", "Warning", "Error", "FatalError" };
 
@@ -160,7 +160,7 @@ xml_log_formatter::log_entry_start( std::ostream& ostr, log_entry_data const& en
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_entry_value( std::ostream& ostr, const_string value )
+junit_log_formatter::log_entry_value( std::ostream& ostr, const_string value )
 {
     utils::print_escaped_cdata( ostr, value );
 }
@@ -168,7 +168,7 @@ xml_log_formatter::log_entry_value( std::ostream& ostr, const_string value )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_entry_finish( std::ostream& ostr )
+junit_log_formatter::log_entry_finish( std::ostream& ostr )
 {
     if( !m_value_closed ) {
         ostr << BOOST_TEST_L( "]]>" );
@@ -183,7 +183,7 @@ xml_log_formatter::log_entry_finish( std::ostream& ostr )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::entry_context_start( std::ostream& ostr, log_level )
+junit_log_formatter::entry_context_start( std::ostream& ostr, log_level )
 {
     if( !m_value_closed ) {
         ostr << BOOST_TEST_L( "]]>" );
@@ -196,7 +196,7 @@ xml_log_formatter::entry_context_start( std::ostream& ostr, log_level )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::entry_context_finish( std::ostream& ostr )
+junit_log_formatter::entry_context_finish( std::ostream& ostr )
 {
     ostr << BOOST_TEST_L( "</Context>" );
 }
@@ -204,7 +204,7 @@ xml_log_formatter::entry_context_finish( std::ostream& ostr )
 //____________________________________________________________________________//
 
 void
-xml_log_formatter::log_entry_context( std::ostream& ostr, const_string context_descr )
+junit_log_formatter::log_entry_context( std::ostream& ostr, const_string context_descr )
 {
     ostr << BOOST_TEST_L( "<Frame>" ) << utils::cdata() << context_descr << BOOST_TEST_L( "</Frame>" );
 }
@@ -217,4 +217,4 @@ xml_log_formatter::log_entry_context( std::ostream& ostr, const_string context_d
 
 #include <boost/test/detail/enable_warnings.hpp>
 
-#endif // BOOST_TEST_XML_LOG_FORMATTER_IPP_020105GER
+#endif // BOOST_TEST_junit_log_formatter_IPP_020105GER
