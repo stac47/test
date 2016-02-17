@@ -85,6 +85,7 @@ set(BOOST_UTF_SRC
     ${BOOST_TEST_ROOT_DIR}/src/decorator.cpp
     ${BOOST_TEST_ROOT_DIR}/src/execution_monitor.cpp
     ${BOOST_TEST_ROOT_DIR}/src/framework.cpp
+    ${BOOST_TEST_ROOT_DIR}/src/junit_log_formatter.cpp
     ${BOOST_TEST_ROOT_DIR}/src/plain_report_formatter.cpp
     ${BOOST_TEST_ROOT_DIR}/src/progress_monitor.cpp
     ${BOOST_TEST_ROOT_DIR}/src/results_collector.cpp
