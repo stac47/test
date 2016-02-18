@@ -36,7 +36,7 @@ namespace output {
 
 static const_string tu_type_name( test_unit const& tu )
 {
-    return tu.p_type == TUT_CASE ? "TestCase" : "TestSuite";
+    return tu.p_type == TUT_CASE ? "testcase" : "testsuite";
 }
 
 // ************************************************************************** //
@@ -46,7 +46,7 @@ static const_string tu_type_name( test_unit const& tu )
 void
 junit_log_formatter::log_start( std::ostream& ostr, counter_t )
 {
-    ostr  << "<TestLog>";
+    ostr  << "<testsuites>";
 }
 
 //____________________________________________________________________________//
@@ -54,7 +54,7 @@ junit_log_formatter::log_start( std::ostream& ostr, counter_t )
 void
 junit_log_formatter::log_finish( std::ostream& ostr )
 {
-    ostr  << "</TestLog>";
+    ostr  << "</testsuites>";
 }
 
 //____________________________________________________________________________//
