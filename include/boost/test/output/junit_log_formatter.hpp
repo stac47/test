@@ -15,9 +15,12 @@
 // Boost.Test
 #include <boost/test/detail/global_typedef.hpp>
 #include <boost/test/unit_test_log_formatter.hpp>
+#include <boost/test/tree/test_unit.hpp>
+
 
 // STL
 #include <cstddef> // std::size_t
+#include <map>
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
@@ -27,8 +30,29 @@ namespace boost {
 namespace unit_test {
 namespace output {
 
+  namespace junit_impl
+  {
+    struct test_unit_
+    {
+      test_unit::id_t test_id;
+      test_unit_type test_type;
+      std::string parent;
+      std::size_t disabled;
+      std::size_t failure_nb;
+      std::size_t error_nb;
+      std::size_t disabled_nb;
+      std::size_t assertions;
+      std::size_t test_nb;
+      double time; // in sec
+      
+      bool skipped;
+      std::string cdata;
+      std::string failure;
+    };
+  }
+
 // ************************************************************************** //
-// **************               xml_log_formatter              ************** //
+// **************               junit_log_formatter              ************** //
 // ************************************************************************** //
 
 class junit_log_formatter : public unit_test_log_formatter {
@@ -55,9 +79,11 @@ public:
     void    entry_context_finish( std::ostream& );
 
 private:
-    // Data members
-    const_string    m_curr_tag;
-    bool            m_value_closed;
+    typedef std::map<std::string, junit_impl::test_unit_> map_trace_t;
+    map_trace_t map_tests;
+    map_trace_t::iterator current_test_unit;
+    std::string m_curr_tag;
+    bool m_value_closed;
 };
 
 } // namespace output
