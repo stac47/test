@@ -106,10 +106,6 @@ namespace boost {
 namespace unit_test {
 namespace output {
 
-static const_string tu_type_name( test_unit const& tu )
-{
-    return tu.p_type == TUT_CASE ? "testcase" : "testsuite";
-}
 
 struct s_replace_dot
 {

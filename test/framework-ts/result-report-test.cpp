@@ -92,6 +92,7 @@ void check( output_test_stream& output, test_suite* ts )
 
     check( output, OF_CLF, ts->p_id );
     check( output, OF_XML, ts->p_id );
+    check( output, OF_JUNIT, ts->p_id );
 }
 
 //____________________________________________________________________________//

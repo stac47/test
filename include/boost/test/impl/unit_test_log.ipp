@@ -26,6 +26,7 @@
 
 #include <boost/test/output/compiler_log_formatter.hpp>
 #include <boost/test/output/xml_log_formatter.hpp>
+#include <boost/test/output/junit_log_formatter.hpp>
 
 // Boost
 #include <boost/scoped_ptr.hpp>
@@ -435,6 +436,9 @@ unit_test_log_t::set_format( output_format log_format )
         break;
     case OF_XML:
         set_formatter( new output::xml_log_formatter );
+        break;
+    case OF_JUNIT:
+        set_formatter( new output::junit_log_formatter );
         break;
     }
 }
