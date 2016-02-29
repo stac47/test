@@ -28,6 +28,8 @@
 // Boost
 #include <boost/function/function0.hpp>
 #include <boost/function/function1.hpp>
+#include <boost/bind.hpp>
+
 
 // STL
 #include <vector>
