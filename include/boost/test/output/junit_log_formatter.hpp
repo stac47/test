@@ -57,6 +57,12 @@ namespace output {
 
 class junit_log_formatter : public unit_test_log_formatter {
 public:
+
+    junit_log_formatter()
+    {
+      this->m_log_level = log_successful_tests;
+    }
+
     // Formatter interface
     void    log_start( std::ostream&, counter_t test_cases_amount );
     void    log_finish( std::ostream& );
@@ -77,6 +83,12 @@ public:
     void    entry_context_start( std::ostream&, log_level );
     void    log_entry_context( std::ostream&, const_string );
     void    entry_context_finish( std::ostream& );
+
+    //! Discards changes in the log level
+    virtual void        set_log_level(log_level )
+    {
+    }
+
 
 private:
     typedef std::map<std::string, junit_impl::test_unit_> map_trace_t;
