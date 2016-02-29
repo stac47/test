@@ -23,6 +23,7 @@
 #include <boost/test/unit_test_parameters.hpp>
 
 #include <boost/test/utils/basic_cstring/compare.hpp>
+#include <boost/test/utils/foreach.hpp>
 
 #include <boost/test/output/compiler_log_formatter.hpp>
 #include <boost/test/output/xml_log_formatter.hpp>
