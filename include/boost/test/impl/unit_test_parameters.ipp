@@ -82,6 +82,7 @@ std::string LIST_LABELS       = "list_labels";
 std::string LOG_FORMAT        = "log_format";
 std::string LOG_LEVEL         = "log_level";
 std::string LOG_SINK          = "log_sink";
+std::string COMBINED_LOGGER   = "logger";
 std::string OUTPUT_FORMAT     = "output_format";
 std::string RANDOM_SEED       = "random";
 std::string REPORT_FORMAT     = "report_format";
@@ -136,6 +137,8 @@ register_parameters( rt::parameters_store& store )
 
     break_exec_path.add_cla_id( "--", BREAK_EXEC_PATH, "=" );    
     store.add( break_exec_path );
+
+    ///////////////////////////////////////////////
 
     rt::option build_info( BUILD_INFO, (
         rt::description = "Displays library build information.",
@@ -270,13 +273,15 @@ register_parameters( rt::parameters_store& store )
         {
             { "HRF", OF_CLF },
             { "CLF", OF_CLF },
-            { "XML", OF_XML }
+            { "XML", OF_XML },
+            { "JUNIT", OF_JUNIT },
         },
 #else
         rt::enum_values_list<unit_test::output_format>()
             ( "HRF", OF_CLF )
             ( "CLF", OF_CLF )
             ( "XML", OF_XML )
+            ( "JUNIT", OF_JUNIT )
         ,
 #endif
         rt::help = "Parameter " + LOG_FORMAT + " allows to set the frameowrk's log format to one "
@@ -440,6 +445,20 @@ register_parameters( rt::parameters_store& store )
     report_format.add_cla_id( "--", REPORT_FORMAT, "=" );
     report_format.add_cla_id( "-", "m", " " );
     store.add( report_format );
+
+
+    /////////////////////////////////////////////// combined logger option
+
+    rt::parameter<std::string,rt::REPEATABLE_PARAM> combined_logger( COMBINED_LOGGER, (
+        rt::description = "Indicates the logger.",
+        rt::env_var = "BOOST_TEST_COMBINED_LOGGER",
+        rt::value_hint = "log_format:log:level:log_sink",
+        rt::help = "Parameter " + COMBINED_LOGGER + " allows to specify the logger type, level and sink\n"
+                   "in one command." 
+    ));
+
+    combined_logger.add_cla_id( "--", COMBINED_LOGGER, "=" );
+    store.add( combined_logger );
 
     ///////////////////////////////////////////////
 

@@ -105,6 +105,8 @@ public:
     void                set_threshold_level( log_level );
     void                set_format( output_format );
     void                set_formatter( unit_test_log_formatter* );
+    void                set_logger_and_configuration( output_format, log_level, std::ostream&);
+    void                add_logger_and_configuration( unit_test_log_formatter*, log_level, std::ostream&);
 
     // test progress logging
     void                set_checkpoint( const_string file, std::size_t line_num, const_string msg = const_string() );

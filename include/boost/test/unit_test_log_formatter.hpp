@@ -95,6 +95,10 @@ public:
                            BOOST_UTL_ET_FATAL_ERROR ///< Fatal error notification message
     };
 
+    //! Constructor
+    unit_test_log_formatter() : m_log_level(log_all_errors)
+    {}
+
     // Destructor
     virtual             ~unit_test_log_formatter() {}
 
@@ -235,6 +239,25 @@ public:
     /// @see log_entry_start, entry_context_context
     virtual void        entry_context_finish( std::ostream& os ) = 0;
     // @}
+
+    //! @name Log level management
+    //! @{
+
+    /// Some loggers need to manage the log level by their own. This 
+    /// member function let the implementation decide of that.
+    virtual void        set_log_level(log_level new_log_level)
+    {
+        m_log_level = new_log_level;
+    }
+    virtual log_level   get_log_level() const
+    {
+        return m_log_level;
+    }
+    //! @}
+
+protected:
+    log_level           m_log_level;
+
 };
 
 } // namespace unit_test
